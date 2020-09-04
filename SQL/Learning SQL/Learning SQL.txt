@@ -1,0 +1,10 @@
+- follow a course called "SQL for Data Analysis: Weekender Crash Course for Beginners" on udemy
+- course url:https://www.udemy.com/course/sql-for-newbs/
+
+- NOTES:
+- SELECT: tells the database what information to give back
+- FROM: what table are we using
+- WHERE: put coniditions on the information getting back (kinda like a filter?)
+- COUNT: how many items meet the condition we ask for, (counting the rows what meets the conditions)
+- GROUP BY: group the return rows by the inputed title
+- REMEMBER ORDER MATTERS!!!!!!!!!
