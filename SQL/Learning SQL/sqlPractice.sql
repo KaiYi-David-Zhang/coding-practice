@@ -124,3 +124,76 @@ WHERE r.rental_id = p.rental_id
 GROUP BY 1
 ORDER BY 1
 ;
+
+
+-- how many distinct renters per month
+SELECT left(r.rental_date, 7) as month, count(r.rental_id) as total_rentals,
+        count(distinct r.customer_id) as unique_renters, count(r.rental_id)/count(distinct r.customer_id) as avg_rental_per_customer
+FROM rental r
+WHERE
+;
+
+-- the number of distinct films rented each month
+SELECT left(r.rental_date, 7), count(distinct f.film_id)
+FROM rental r, inventory i, film f
+WHERE f.film_id = i.film_id and i.inventory_id = r.inventory_id
+GROUP BY 1
+;
+
+
+-- the number of rentals in the comedy, sport and family
+SELECT c.name, count(r.rental_id)
+FROM rental r, inventory i, film f, film_category fc, category c
+WHERE r.inventory_id = i.inventory_id
+      and i.film_id = f.film_id
+      and f.film_id = fc.film_id
+      and fc.category_id =  c.category_id
+      and c.name in ("Comedy", "Sports", "Family")
+GROUP BY 1
+;
+
+-- user's who have rented at least 3 times
+SELECT r.customer_id as customer, count(r.rental_id) as rentals
+FROM rental r
+GROUP BY 1
+HAVING count(r.rental_id) >= 3
+;
+
+-- revenue for store 1 where film is rated  PG-13 or R
+SELECT f.rating, sum(p.amount)
+FROM rental r, film f, inventory i, payment p
+WHERE r.rental_id = p.rental_id 
+      and r.inventory_id = i.inventory_id 
+      and i.film_id = f.film_id
+      and i.store_id = 1
+      and f.rating in ("PG-13", "R")
+      and r.rental_date between '2005-06-08' and '2005-07-19'
+GROUP BY 1
+;
+
+-- nested queries
+-- rentals per customer
+SELECT rpc.num_rentals, count(distinct rpc.customer_id), sum(p.amount)
+FROM
+  (SELECT r.customer_id, count(distinct r.rental_id) as num_rentals
+    FROM rental r
+    GROUP BY 1
+  ) as rpc,
+  payment p
+WHERE rpc.customer_id = p.customer_id and rpc.num_rentals > 20
+GROUP BY 1
+;
+
+-- temporary tables
+create temporary table rpc as 
+SELECT r.customer_id, count(distinct r.rental_id) as num_rentals
+FROM rental r
+GROUP BY 1
+;
+
+SELECT sum(p.amount)
+FROM
+  rpc,
+  payment p
+WHERE rpc.customer_id = p.customer_id and rpc.num_rentals > 20
+;

@@ -12,5 +12,11 @@
 - ORDER BY: orders the rows based on the select column, use keyword "desc" to make the list descending
 - SUM: useful when tracking total
 - LEFT (field, int): give some leftmost segment of the field, the integer represents how many spaces from the left do we want
-- MIN: 
-- MAX:
+- MIN: find the min value
+- MAX: fint the max value
+- DISTINCT: only returns the distinct values (or don't want to see the diplicate values)
+- IN: useful if we want to look at a specific group of users
+- comparison operators (=, >, <, >=, <=, <> - not equal, !=)
+- IMPORTANT: cannot put function in the WHERE clause
+- HAVING: filter results can use functions in this clause, used after getting the results so to be used after GROUP BY (final filter)
+- can nest queries using () 
