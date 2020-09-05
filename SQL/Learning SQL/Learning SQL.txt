@@ -8,3 +8,9 @@
 - COUNT: how many items meet the condition we ask for, (counting the rows what meets the conditions)
 - GROUP BY: group the return rows by the inputed title
 - REMEMBER ORDER MATTERS!!!!!!!!!
+- when using key word "as" the assigned name becomes the column name after search
+- ORDER BY: orders the rows based on the select column, use keyword "desc" to make the list descending
+- SUM: useful when tracking total
+- LEFT (field, int): give some leftmost segment of the field, the integer represents how many spaces from the left do we want
+- MIN: 
+- MAX:
